@@ -12,3 +12,26 @@ function PricingSection() {
         </div>
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,hsl(var(--primary)/0.06),transparent_70%)]"></div>
       </div>
+      <div className="relative z-10 max-w-7xl mx-auto">
+
+        
+        {/* Header */}
+        <div className="text-center mb-20">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-primary/5 to-primary/10 rounded-full border border-primary/10 backdrop-blur-sm mb-6">
+            <span className="w-2 h-2 bg-primary rounded-full animate-pulse"></span>
+            <span className="text-sm font-medium text-primary">Simple Pricing</span>
+          </div>
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 tracking-tight">
+            <span className="bg-gradient-to-br from-foreground to-foreground/70 bg-clip-text text-transparent">
+              Choose your
+            </span>
+            <br />
+            <span className="bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
+              AI dental plan
+            </span>
+          </h2>
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+            Book appointments for free and upgrade for unlimited AI consultations. Perfect for
+            ongoing dental care.
+          </p>
+        </div>
