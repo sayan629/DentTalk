@@ -34,7 +34,7 @@ const Hero = () => {
                         </span>
                         <br />
                         <span className="bg-gradient-to-br from-foreground via-foreground to-foreground/70 bg-clip-text text-transparent">
-                            AnsweredInstantly
+                            Answered Instantly
                         </span>
                         </h1>
 
@@ -42,8 +42,9 @@ const Hero = () => {
                         <p className="text-lg text-muted-foreground leading-relaxed max-w-xl font-medium">
                             Ask questions, understand your dental concerns, and find the right care—all with an AI assistant available whenever you need it.
                         </p>
-
                     </div>
+
+
 
                 </div>
             </div>
