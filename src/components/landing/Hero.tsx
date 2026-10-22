@@ -1,3 +1,8 @@
+import { SignUpButton } from "@clerk/nextjs"
+import { Button } from "../ui/button"
+import { CalendarIcon, MicIcon } from "lucide-react"
+import Image from "next/image"
+
 const Hero = () => {
   return <section className="relative h-screen flex items-center overflow-hidden pt-20">
     {/* GRID BG */}
@@ -44,7 +49,72 @@ const Hero = () => {
                         </p>
                     </div>
 
+                        {/* CTA BUTTONS */}
+                        <div className = "flex flex-col sm:flex-row gap-4">
+                            <SignUpButton mode="modal">
+                                <Button size={"lg"}>
+                                    <MicIcon className="mr-2 size-5"/>
+                                    Try Voice Agent
+                                </Button>
+                            </SignUpButton>
 
+                            <SignUpButton mode="modal">
+                                <Button size={"lg"} variant={"outline"}>
+                                    <CalendarIcon className="mr-2 size-5"/>
+                                    Book Appointment
+                                </Button>
+                            </SignUpButton>
+
+                        </div>
+
+                        {/* USER TESTIMONIALS */}
+                        <div className="pt-8">
+                            <div className="flex items-center gap-6">
+                                {/* USER AVATARS */}
+                                <div className="flex -space-x-3">
+                                    <Image
+                                        src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&h=100&fit=crop&crop=face"
+                                        alt = "Jessica Davis"
+                                        width = {48}
+                                        height= {48}
+                                        className ="w-12 h-12 rounded-full object-cover ring-4 ring-background"
+                                    />
+
+                                    <Image
+                                        src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=100&h=100&fit=crop&crop=face"
+                                        alt = "Sam Miller"
+                                        width = {48}
+                                        height= {48}
+                                        className ="w-12 h-12 rounded-full object-cover ring-4 ring-background"
+                                    />
+
+                                    <Image
+                                        src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=100&h=100&fit=crop&crop=face"
+                                        alt="Anna Lopez"
+                                        width={48}
+                                        height={48}
+                                        className="w-12 h-12 rounded-full object-cover ring-4 ring-background"
+                                    />
+
+                                    <Image
+                                        src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?w=100&h=100&fit=crop&crop=face"
+                                        alt="Mike Rodriguez"
+                                        width={48}
+                                        height={48}
+                                        className="w-12 h-12 rounded-full object-cover ring-4 ring-background"
+                                    />
+
+                                    <Image
+                                        src="https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?w=100&h=100&fit=crop&crop=face"
+                                        alt="Katie Lee"
+                                        width={48}
+                                        height={48}
+                                        className="w-12 h-12 rounded-full object-cover ring-4 ring-background"
+                                    />
+
+                                </div>
+                            </div>
+                        </div>
 
                 </div>
             </div>
