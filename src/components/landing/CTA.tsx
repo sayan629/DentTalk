@@ -28,8 +28,7 @@ function CTA() {
               </h2>
 
               <p className="text-lg text-muted-foreground leading-relaxed">
-                Join 1,200+ patients who trust our AI for instant guidance and personalized care.
-              </p>
+                Joined by over 1,200+ patients relying on AI-driven insights for instant clarity and custom care.              </p>
             </div>
 
             {/* CTA Buttons */}
