@@ -55,3 +55,24 @@ function PricingSection() {
                     Get Started Free
                   </Button>
                 </SignUpButton>
+                <div className="space-y-4">
+                  <div className="flex items-start gap-3">
+                    <CheckCircleIcon className="w-5 h-5 text-primary mt-0.5 shrink-0" />
+                    <span className="text-sm">Unlimited appointment booking</span>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <CheckCircleIcon className="w-5 h-5 text-primary mt-0.5 shrink-0" />
+                    <span className="text-sm">Find dentists in your area</span>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <CheckCircleIcon className="w-5 h-5 text-primary mt-0.5 shrink-0" />
+                    <span className="text-sm">Basic text chat support</span>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <CheckCircleIcon className="w-5 h-5 text-primary mt-0.5 shrink-0" />
+                    <span className="text-sm">Appointment reminders</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
