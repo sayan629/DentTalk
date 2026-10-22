@@ -1,9 +1,3 @@
-import React from 'react'
-
-function CTA() {
-  return (
-    <div>CTA</div>
-  )
-}
-
-export default CTA
+import Image from "next/image";
+import { Button } from "@/components/ui/button";
+import { MicIcon, CalendarIcon } from "lucide-react";
