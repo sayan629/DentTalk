@@ -51,3 +51,19 @@ function CTA() {
               </Button>
             </div>
           </div>
+
+          {/* Right Content - CTA Image */}
+          <div className="relative flex justify-center lg:justify-end">
+            <div className="relative">
+              {/* Floating Badge */}
+              <div className="absolute -top-4 left-4 bg-gradient-to-r from-green-500/90 to-emerald-500/90 backdrop-blur-sm text-white px-3 py-1 rounded-full text-xs font-medium shadow-lg z-10">
+                <div className="flex items-center gap-1">
+                  <div className="w-1.5 h-1.5 bg-white rounded-full animate-pulse"></div>
+                  Available 24/7
+                </div>
+              </div>
+
+              {/* Main Image */}
+              <div className="relative">
+                {/* Subtle glow */}
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent rounded-2xl blur-xl scale-110"></div>
