@@ -67,3 +67,23 @@ function CTA() {
               <div className="relative">
                 {/* Subtle glow */}
                 <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent rounded-2xl blur-xl scale-110"></div>
+                <Image
+                  src="/cta.png"
+                  alt="DentWise AI Assistant"
+                  width={300}
+                  height={300}
+                  className="relative w-80 h-auto drop-shadow-xl hover:scale-105 transition-transform duration-500"
+                  priority
+                />
+              </div>
+
+              {/* Decorative Elements */}
+              <div className="absolute -bottom-2 -right-2 w-16 h-16 bg-gradient-to-br from-primary/10 to-primary/5 rounded-full blur-lg"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+export default CTA;
