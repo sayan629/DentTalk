@@ -14,7 +14,7 @@ function PricingSection() {
       </div>
       <div className="relative z-10 max-w-7xl mx-auto">
 
-        
+
         {/* Header */}
         <div className="text-center mb-20">
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-primary/5 to-primary/10 rounded-full border border-primary/10 backdrop-blur-sm mb-6">
@@ -35,3 +35,23 @@ function PricingSection() {
             ongoing dental care.
           </p>
         </div>
+
+        {/* Pricing Cards */}
+        <div className="grid lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          {/* Free Plan */}
+          <div className="relative group">
+            <div className="relative bg-gradient-to-br from-card/90 to-card/60 backdrop-blur-xl rounded-3xl p-8 border border-border/50 hover:border-primary/30 transition-all duration-500 hover:shadow-2xl hover:shadow-primary/10">
+              <div className="space-y-6">
+                <div className="space-y-3">
+                  <h3 className="text-2xl font-bold">Free</h3>
+                  <div className="flex items-end gap-1">
+                    <span className="text-4xl font-bold">$0</span>
+                    <span className="text-muted-foreground mb-1">/month</span>
+                  </div>
+                  <p className="text-muted-foreground">Essential dental appointment booking</p>
+                </div>
+                <SignUpButton mode="modal">
+                  <Button className="w-full py-3 bg-gradient-to-r from-muted to-muted/80 text-foreground rounded-xl font-semibold">
+                    Get Started Free
+                  </Button>
+                </SignUpButton>
