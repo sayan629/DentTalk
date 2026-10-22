@@ -8,6 +8,47 @@ const Hero = () => {
     {/* Gradient ORBS */}
     <div className="absolute top-20 left-1/4 w-72 h-72 bg-gradient-to-r from-primary/20 to-primary/10 rounded-full blur-3xl" />
     <div className="absolute bottom-10 right-1/4 w-96 h-96 bg-gradient-to-r from-primary/15 to-primary/5 rounded-full blur-3xl" />
+    
+    <div className="relative z-10 w-full px-6">
+        <div className="max-w-7xl mx-auto">
+            <div className="grid lg:grid-cols-2 gap-16 items-center">
+                {/* LEFT CONTENT */}
+                <div className="space-y-10">
+                    <div className="space-y-6">
+                        {/* BADGE */}
+                        <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-primary/10 to-primary/5 rounded-full border border-primary/20 backdrop-blur-sm">
+                            <div className="w-2 h-2 bg-primary rounded-full animate-pulse"></div>
+                            <span className="text-sm">
+                                AI-Powered Dental Assistant
+                            </span>
+                        </div>
+
+                        {/* MAIN HEADING */}
+                        <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight">
+                        <span className="bg-gradient-to-br from-foreground via-foreground to-foreground/70 bg-clip-text text-transparent">
+                            Your Smile
+                        </span>
+                        <br />
+                        <span className="bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
+                           Your Questions
+                        </span>
+                        <br />
+                        <span className="bg-gradient-to-br from-foreground via-foreground to-foreground/70 bg-clip-text text-transparent">
+                            AnsweredInstantly
+                        </span>
+                        </h1>
+
+                        {/* Subtitle */}
+                        <p className="text-lg text-muted-foreground leading-relaxed max-w-xl font-medium">
+                            Ask questions, understand your dental concerns, and find the right care—all with an AI assistant available whenever you need it.
+                        </p>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
   </section>
   
 }
