@@ -76,3 +76,25 @@ function PricingSection() {
               </div>
             </div>
           </div>
+
+          {/* Pro Plan - Featured */}
+          <div className="relative group">
+            {/* Popular Badge */}
+            <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 z-20">
+              <div className="bg-gradient-to-r from-primary to-primary/80 text-primary-foreground px-4 py-2 rounded-full text-sm font-semibold shadow-lg">
+                Most Popular
+              </div>
+            </div>
+
+            <div className="relative bg-gradient-to-br from-card/95 to-card/70 backdrop-blur-xl rounded-3xl p-8 border-2 border-primary/30 hover:border-primary/50 transition-all duration-500 shadow-xl hover:shadow-2xl hover:shadow-primary/20 scale-105">
+              <div className="space-y-6">
+                <div className="space-y-3">
+                  <h3 className="text-2xl font-bold">AI Basic</h3>
+                  <div className="flex items-end gap-1">
+                    <span className="text-4xl font-bold bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent">
+                      $9
+                    </span>
+                    <span className="text-muted-foreground mb-1">/month</span>
+                  </div>
+                  <p className="text-muted-foreground">AI consultations + appointment booking</p>
+                </div>
