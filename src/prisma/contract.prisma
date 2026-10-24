@@ -1,21 +1,62 @@
 // use prisma-8
 
 model User {
-  id        Int      @id @default(autoincrement())
-  email     String   @unique
-  username  String?
-  name      String?
-  posts     Post[]
-  createdAt TimestamptzString @default(now())
-  updatedAt temporal.updatedAtString()
+  id           String              @id @onCreate(cuid(2))
+  clerkId      String              @unique
+  email        String              @unique
+  firstName    String?
+  lastName     String?
+  phone        String?
+  createdAt    TimestamptzString   @default(now())
+  updatedAt    temporal.updatedAtString()
+
+  appointments Appointment[]
+
+  @@map("users")
 }
 
-model Post {
-  id        Int      @id @default(autoincrement())
-  title     String
-  content   String?
-  author    User     @relation(fields: [authorId], references: [id])
-  authorId  Int
-  createdAt TimestamptzString @default(now())
+model Doctor {
+  id           String              @id @onCreate(cuid(2))
+  name         String
+  email        String              @unique
+  phone        String
+  speciality   String
+  bio          String?
+  imageUrl     String
+  gender       Gender
+  isActive     Boolean             @default(true)
+  createdAt    TimestamptzString   @default(now())
+  updatedAt    temporal.updatedAtString()
+
+  appointments Appointment[]
+}
+
+model Appointment {
+  id        String              @id @onCreate(cuid(2))
+  date      TimestamptzString
+  time      String
+  duration  Int                 @default(30)
+  status    AppointmentStatus   @default(CONFIRMED)
+  notes     String?
+  reason    String?
+  createdAt TimestamptzString   @default(now())
   updatedAt temporal.updatedAtString()
+
+  userId   String
+  doctorId String
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  doctor Doctor @relation(fields: [doctorId], references: [id], onDelete: Cascade)
+
+  @@map("appointments")
+}
+
+enum Gender {
+  MALE
+  FEMALE
+}
+
+enum AppointmentStatus {
+  CONFIRMED
+  COMPLETED
 }
