@@ -7,8 +7,8 @@ import { SettingsIcon } from "lucide-react";
 
 function AdminDashboardClient() {
   const { user } = useUser();
-  const { data, isLoading } = useGetDoctors();
-
+  const { data: doctors = [], isLoading } = useGetDoctors();
+  
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
