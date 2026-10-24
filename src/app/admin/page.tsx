@@ -1,0 +1,17 @@
+import { currentUser } from "@clerk/nextjs/server"
+import { redirect } from "next/navigation";
+
+async function AdminPage() {
+  const user = await currentUser();
+
+  // user not logged in
+  if(!user) redirect("/");
+  const adminEmail = process.env.ADMIN_EMAIL;
+  const userEmail = user.emailAddresses[0]?.emailAddress;
+
+  // user is not the admin
+  if(!adminEmail || userEmail !== adminEmail) redirect("/dashboard")
+  return <div>You are the admin</div>
+}
+
+export default AdminPage
