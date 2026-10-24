@@ -25,8 +25,7 @@ function AdminDashboardClient() {
                 Welcome back, {user?.firstName || "Admin"}!
               </h1>
               <p className="text-muted-foreground">
-                Manage doctors, oversee appointments, and monitor your dental
-                practice performance.
+                Monitor practice health, coordinate team schedules, and manage appointments seamlessly.
               </p>
             </div>
           </div>
