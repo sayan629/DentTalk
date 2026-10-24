@@ -62,3 +62,24 @@ function Navbar() {
             </Link>
           </div>
         </div>
+
+        {/* RIGHT SECTION */}
+        <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3">
+            <div className="hidden lg:flex flex-col items-end">
+              <span className="text-sm font-medium text-foreground">
+                {user?.firstName} {user?.lastName}
+              </span>
+              <span className="text-xs text-muted-foreground">
+                {user?.emailAddresses?.[0]?.emailAddress}
+              </span>
+            </div>
+
+            <UserButton />
+          </div>
+        </div>
+      </div>
+    </nav>
+  );
+}
+export default Navbar;
