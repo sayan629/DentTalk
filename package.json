@@ -14,6 +14,7 @@
   "dependencies": {
     "@base-ui/react": "^1.9.0",
     "@clerk/nextjs": "^7.9.18",
+    "@prisma/adapter-pg": "^7.10.1",
     "@prisma/client": "^7.10.1",
     "@prisma/orm-postgres": "^8.0.0-rc.20",
     "@shadcn/react": "^0.3.1",
@@ -26,6 +27,8 @@
     "input-otp": "^1.5.0",
     "lucide-react": "^1.60.0",
     "next": "15.5.0",
+    "pg": "^8.23.1",
+    "prisma": "^7.10.1",
     "react": "^19.1.4",
     "react-day-picker": "^10.0.2",
     "react-dom": "^19.1.4",
@@ -42,7 +45,6 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "prisma": "^8.0.0-rc.27",
     "tailwindcss": "^4",
     "typescript": "^5"
   }
