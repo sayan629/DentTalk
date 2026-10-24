@@ -1,0 +1,35 @@
+generator client {
+  provider = "prisma-client-js"
+
+}
+
+datasource db {
+  provider = "postgresql" // change to "mysql", "sqlite", or "mongodb" if needed
+  url      = env("DATABASE_URL")
+}
+
+model User{
+    id          String @id @default(cuid())
+    clerkId     String @unique
+    email       String @unique
+    firstName   String?
+    lastName    String?
+    phone       String?
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
+}
+
+model Doctor {
+    id            String @id @default(cuid())
+    name          String
+    email         String @unique
+    phone         String
+    speciality    String
+    bio           String?
+    imageUrl      String
+    gender        Gender
+}
+
+enum Gender {
+    
+}
