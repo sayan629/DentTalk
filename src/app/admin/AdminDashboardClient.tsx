@@ -1,5 +1,6 @@
 "use client";
 
+import AdminStats from "@/components/admin/AdminStats";
 import Navbar from "@/components/Navbar";
 import { useGetAppointments } from "@/hooks/use-appointment";
 import { useGetDoctors } from "@/hooks/use-doctors";
@@ -11,7 +12,14 @@ function AdminDashboardClient() {
   const { data: doctors = [], isLoading:doctorsLoading } = useGetDoctors();
   const { data: appointments = [], isLoading:appointmentsLoading } = useGetAppointments();
 
-  const stats = []
+  const stats = {
+    totalDoctors: doctors.length,
+    activeDoctors: doctors.filter((doc)=> doc.isActive).length,
+    totalAppointments: appointments.length,
+    completedAppointments: appointments.filter((app)=> app.status === "COMPLETED").length, 
+  };
+
+  if(doctorsLoading || appointmentsLoading) return <p>LOADING...</p>
   
   return (
     <div className="min-h-screen bg-background">
@@ -41,6 +49,12 @@ function AdminDashboardClient() {
             </div>
           </div>
         </div>
+        <AdminStats
+          totalDoctors = {stats.totalDoctors}
+          activeDoctors = {stats.activeDoctors}
+          totalAppointments = {stats.totalAppointments}
+          completedAppointments = {stats.completedAppointments}
+          />
       </div>
     </div>
   );
