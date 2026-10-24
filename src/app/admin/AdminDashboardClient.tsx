@@ -51,3 +51,20 @@ function AdminDashboardClient() {
             </div>
           </div>
         </div>
+
+        <AdminStats
+          totalDoctors={stats.totalDoctors}
+          activeDoctors={stats.activeDoctors}
+          totalAppointments={stats.totalAppointments}
+          completedAppointments={stats.completedAppointments}
+        />
+
+        <DoctorsManagement />
+
+        <RecentAppointments />
+      </div>
+    </div>
+  );
+}
+
+export default AdminDashboardClient;
