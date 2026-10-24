@@ -1,14 +1,23 @@
-"use client"
+"use client";
 
-import Navbar from "@/components/Navbar"
+import AdminStats from "@/components/admin/AdminStats";
+import DoctorsManagement from "@/components/admin/DoctorsManagement";
+import RecentAppointments from "@/components/admin/RecentAppointments";
+import Navbar from "@/components/Navbar";
+import { useGetAppointments } from "@/hooks/use-appointment";
+import { useGetDoctors } from "@/hooks/use-doctors";
+import { useUser } from "@clerk/nextjs";
+import { SettingsIcon } from "lucide-react";
 
 function AdminDashboardClient() {
-  return <div className="min-h-screen bg-background">
-    <Navbar/>
-    <div className="p-4">
-      <h1 className="text-2xl font-bold mb-4">Admin Dasboard</h1>
-    </div>
-  </div>
-  
-}
-export default AdminDashboardClient
+  const { user } = useUser();
+  const { data: doctors = [], isLoading: doctorsLoading } = useGetDoctors();
+  const { data: appointments = [], isLoading: appointmentsLoading } = useGetAppointments();
+
+  // calculate stats from real data
+  const stats = {
+    totalDoctors: doctors.length,
+    activeDoctors: doctors.filter((doc) => doc.isActive).length,
+    totalAppointments: appointments.length,
+    completedAppointments: appointments.filter((app) => app.status === "COMPLETED").length,
+  };
