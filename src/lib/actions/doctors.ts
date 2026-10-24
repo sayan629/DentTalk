@@ -10,7 +10,10 @@ export async function getDoctors() {
             },
             orderBy: { createdAt: "desc" },
         });
-        return doctors;
+        return doctors.map((doctor)=>({
+            ...doctor,
+            appointmentCount: doctor._count.appointments,
+        }));
     } catch (error) {
         console.log("Error fetching doctors:", error);
         throw new Error("Failed to fetch doctors");
