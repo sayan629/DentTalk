@@ -3,6 +3,7 @@
 import { Gender } from "@prisma/client";
 import { prisma } from "../prisma";
 import { generateAvatar } from "../utils";
+import { revalidatePath } from "next/cache";
 
 export async function getDoctors() {
     try {
@@ -34,12 +35,22 @@ interface CreateDoctorInput {
 export async function createDoctor(input: CreateDoctorInput) {
     try {
         if(!input.name || !input.email) throw new Error("Name and email are required");
-        await prisma.doctor.create({
+        
+        const doctor = await prisma.doctor.create({
             data: {
         ...input,
         imageUrl: generateAvatar(input.name, input.gender),
       },
-    });
-    } catch (error) {
+    })
+
+    revalidatePath("/admin");
+    return doctor;
+    } catch (error:any) {
+        console.error("Error creating doctor:", error);
+
+        if(error?.code === "P2002") {
+            throw new Error("A doctor with this email already exists.");
+        }
+        throw new Error("Failed to create doctor");
     }
 }
