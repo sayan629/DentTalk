@@ -5,6 +5,8 @@ import { MailIcon, PhoneIcon, PlusIcon, StethoscopeIcon, EditIcon } from "lucide
 import { Button } from "../ui/button";
 import Image from "next/image";
 import { Badge } from "../ui/badge";
+import AddDoctorDialog from "./AddDoctorDialog";
+
 
 function DoctorsManagement() {
 
@@ -94,6 +96,8 @@ function DoctorsManagement() {
                 </div>
             </CardContent>
         </Card>
+
+        <AddDoctorDialog  isOpen={isAddDialogOpen} onClose={() => setIsAddDialogOpen(false)} />
     </>
     )
 }
