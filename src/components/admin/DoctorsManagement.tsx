@@ -1,9 +1,10 @@
 import { useGetDoctors } from "@/hooks/use-doctors";
 import { useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../ui/card";
-import { MailIcon, PhoneIcon, PlusIcon, StethoscopeIcon } from "lucide-react";
+import { MailIcon, PhoneIcon, PlusIcon, StethoscopeIcon, EditIcon } from "lucide-react";
 import { Button } from "../ui/button";
 import Image from "next/image";
+import { Badge } from "../ui/badge";
 
 function DoctorsManagement() {
 
@@ -67,6 +68,26 @@ function DoctorsManagement() {
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div className = "flex items-center gap-3">
+                        <div className = "text-center">
+                            <div className = "font-semibold text-primary">{doctor.appointmentCount}</div>
+                            <div className = "text-xs text-muted-foreground">Appointments</div>
+                        </div>
+                        {doctor.isActive ? (
+                            <Badge className = "bg-green-100 text-green-800 hover:bg-green-100">Active</Badge>
+                        ) : (
+                            <Badge variant = "secondary">Inactive</Badge>
+                        )}
+                        <Button
+                    size="sm"
+                    variant="outline"
+                    className="h-8 px-3"
+                    onClick={() => handleEditDoctor()}
+                  >
+                    <EditIcon className="size-4 mr-1" />
+                    Edit
+                  </Button>
                     </div>
                 </div>
                 ))}
