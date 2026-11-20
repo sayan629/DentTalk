@@ -13,6 +13,7 @@ import {
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
+import { Button } from "../ui/button";
 
 interface EditDoctorDialogProps {
   isOpen: boolean;
@@ -132,6 +133,19 @@ function EditDoctorDialog({doctor, isOpen, onClose}: EditDoctorDialogProps) {
             </div>
           </div>
         )}
+
+        <DialogFooter>
+          <Button variant="outline" onClick={handleClose}>
+            Cancel
+          </Button>
+          <Button
+            onClick={handleSave}
+            className="bg-primary hover:bg-primary/90"
+            disabled={updateDoctorMutation.isPending}
+          >
+            {updateDoctorMutation.isPending ? "Saving..." : "Save Changes"}
+          </Button>
+        </DialogFooter>
 
       </DialogContent>
     </Dialog>
