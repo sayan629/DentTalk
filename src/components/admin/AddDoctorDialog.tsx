@@ -1,10 +1,11 @@
 import { useCreateDoctor } from "@/hooks/use-doctors";
 import { Gender } from "@prisma/client";
 import { useState } from "react";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "../ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "../ui/dialog";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
+import { Button } from "../ui/button";
 
 
 interface AddDoctorDialogProps {
@@ -108,11 +109,37 @@ function AddDoctorDialog({ isOpen, onClose }: AddDoctorDialogProps) {
                   <SelectItem value="MALE">Male</SelectItem>
                   <SelectItem value="FEMALE">Female</SelectItem>
                 </SelectContent>
-
               </Select>
             </div>  
-          </div>
 
+             <div className="space-y-2">
+              <Label htmlFor="new-status">Status</Label>
+              <Select
+                value={newDoctor.isActive ? "active" : "inactive"}
+                onValueChange={(value) =>
+                  setNewDoctor({ ...newDoctor, isActive: value === "active" })
+                }
+              >
+                <SelectTrigger>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="active">Active</SelectItem>
+                  <SelectItem value="inactive">Inactive</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+          </div>
+          <DialogFooter>
+            <Button variant="outline" onClick={handleClose}>Cancel</Button>
+            <Button 
+              onClick={handleSave}
+              className = "bg-primary hover:bg-primary/90"
+              disabled={!newDoctor.name || !newDoctor.email || !newDoctor.speciality || createDoctorMutation.isPending}
+              >
+              </Button>
+          </DialogFooter>
         </DialogContent> 
     </Dialog>
   )
