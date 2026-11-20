@@ -14,13 +14,15 @@ export function generateAvatar(name: string, gender: "MALE" | "FEMALE") {
 }
 
 export const formatPhoneNumber = (value: string) => {
-  if(!value) return value;
-  const phoneNumber = value.replace(/[^\d]/g, "");
-  const phoneNumberLength = phoneNumber.length;
+  if (!value) return value;
 
-  if (phoneNumberLength < 4) return phoneNumber;
-  if (phoneNumberLength < 7) {
-    return `(${phoneNumber.slice(0, 3)}) ${phoneNumber.slice(3)}`;
-  }
-  return `(${phoneNumber.slice(0, 3)}) ${phoneNumber.slice(3,6)}-${phoneNumber.slice(6, 10)}`;
+  // Keep digits only, drop a leading country code / trunk zero
+  let digits = value.replace(/\D/g, "");
+  if (digits.startsWith("91") && digits.length > 10) digits = digits.slice(2);
+  else if (digits.startsWith("0")) digits = digits.slice(1);
+
+  digits = digits.slice(0, 10);
+
+  if (digits.length <= 5) return digits;
+  return `${digits.slice(0, 5)} ${digits.slice(5)}`;
 };

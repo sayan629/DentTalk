@@ -31,7 +31,9 @@ function AddDoctorDialog({ isOpen, onClose }: AddDoctorDialogProps) {
     setNewDoctor({ ...newDoctor, phone: formattedPhoneNumber });
   };
 
-  const handleSave = () => {}
+  const handleSave = () => {
+    createDoctorMutation.mutate({...newDoctor },{ onSuccess: handleClose});
+}
 
   const handleClose = () => {
     onClose();
@@ -92,7 +94,7 @@ function AddDoctorDialog({ isOpen, onClose }: AddDoctorDialogProps) {
               id="new-phone"
               value={newDoctor.phone}
               onChange={(e) => handlePhoneChange(e.target.value)}
-              placeholder="(555) 123-4567"
+              placeholder="+91 98766 43210"
             />
           </div>
 
