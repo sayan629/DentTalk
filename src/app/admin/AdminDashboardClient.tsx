@@ -7,6 +7,7 @@ import { useGetAppointments } from "@/hooks/use-appointment";
 import { useGetDoctors } from "@/hooks/use-doctors";
 import { useUser } from "@clerk/nextjs";
 import { SettingsIcon } from "lucide-react";
+import { HeartPulseIcon } from "lucide-react";
 
 function AdminDashboardClient() {
   const { user } = useUser();
@@ -20,7 +21,7 @@ function AdminDashboardClient() {
     completedAppointments: appointments.filter((app)=> app.status === "COMPLETED").length, 
   };
 
-  if(doctorsLoading || appointmentsLoading) return <p>LOADING...</p>
+  if(doctorsLoading || appointmentsLoading) return <LoadingUI />;
   
   return (
     <div className="min-h-screen bg-background">
@@ -64,3 +65,36 @@ function AdminDashboardClient() {
 }
 
 export default AdminDashboardClient;
+
+function LoadingUI() {
+  return (
+    <div className="min-h-screen bg-background">
+      <Navbar />
+      <div className="max-w-7xl mx-auto px-6 py-8 pt-24">
+        <div className="flex items-center justify-center h-96">
+          <div role="status" className="text-center">
+            <div className="relative w-24 h-24 mx-auto mb-6 flex items-center justify-center">
+              <span className="absolute inset-0 rounded-full bg-primary/20 animate-ping" />
+              <span className="absolute inset-1 rounded-full border-4 border-primary/20 border-t-primary animate-spin" />
+              <span className="absolute inset-5 rounded-full bg-primary/10 flex items-center justify-center">
+                <HeartPulseIcon className="w-8 h-8 text-primary animate-pulse" />
+              </span>
+            </div>
+            <p className="text-muted-foreground flex items-center justify-center gap-2">
+              Loading dashboard data
+              <span className="flex gap-1">
+                {[0, 150, 300].map((d) => (
+                  <span
+                    key={d}
+                    style={{ animationDelay: `${d}ms` }}
+                    className="w-1.5 h-1.5 rounded-full bg-primary animate-bounce"
+                  />
+                ))}
+              </span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
