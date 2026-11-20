@@ -6,6 +6,7 @@ import { Button } from "../ui/button";
 import Image from "next/image";
 import { Badge } from "../ui/badge";
 import AddDoctorDialog from "./AddDoctorDialog";
+import { generateAvatar } from "@/lib/utils";
 
 
 function DoctorsManagement() {
@@ -43,13 +44,26 @@ function DoctorsManagement() {
                             className = "flex items-center justify-between p-4 bg-muted/30 rounded-xl border border-border/50"
                         >
                     <div className = "flex items-center gap-4">
-                        <Image 
-                            src = {doctor.imageUrl}
-                            alt = {doctor.name}
-                            width = {48}
-                            height = {48}
-                            className = "size-12 rounded-full object-cover ring-2 ring-background"
-                        />
+                        
+<Image
+  src={
+    doctor.imageUrl?.includes("avatar.iran.liara.run")
+      ? generateAvatar(
+          doctor.name,
+          doctor.gender === "FEMALE" ? "FEMALE" : "MALE"
+        )
+      : doctor.imageUrl || generateAvatar(
+          doctor.name,
+          doctor.gender === "FEMALE" ? "FEMALE" : "MALE"
+        )
+  }
+  alt={doctor.name}
+  width={48}
+  height={48}
+  unoptimized
+  className="rounded-full object-cover"
+/>
+
                         <div>
                             <div className = "font-semibold">{doctor.name}</div>
                             <div className = "text-sm text-muted-foreground">
