@@ -138,6 +138,7 @@ function AddDoctorDialog({ isOpen, onClose }: AddDoctorDialogProps) {
               className = "bg-primary hover:bg-primary/90"
               disabled={!newDoctor.name || !newDoctor.email || !newDoctor.speciality || createDoctorMutation.isPending}
               >
+              {createDoctorMutation.isPending ? "Saving..." : "Save"}
               </Button>
           </DialogFooter>
         </DialogContent> 
