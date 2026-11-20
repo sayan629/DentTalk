@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "../ui/dialog";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
 
 
 interface AddDoctorDialogProps {
@@ -23,7 +24,10 @@ function AddDoctorDialog({ isOpen, onClose }: AddDoctorDialogProps) {
 
   const createDoctorMutation = useCreateDoctor();
 
-  const handlePhoneChanges = () => {}
+  const handlePhoneChange = (value: string) => {
+    const formattedPhoneNumber = formatPhoneNumber(value);
+    setNewDoctor({ ...newDoctor, phone: formattedPhoneNumber });
+  };
 
   const handleSave = () => {}
 
@@ -59,7 +63,54 @@ function AddDoctorDialog({ isOpen, onClose }: AddDoctorDialogProps) {
                   placeholder="Dr. John Doe"
                 />
               </div>
+              <div className="space-y-2">
+              <Label htmlFor="new-speciality">Speciality *</Label>
+              <Input
+                id="new-speciality"
+                value={newDoctor.speciality}
+                onChange={(e) => setNewDoctor({ ...newDoctor, speciality: e.target.value })}
+                placeholder="General Surgeon"
+              />
             </div>
+            </div>
+            <div className="space-y-2">
+            <Label htmlFor="new-email">Email *</Label>
+            <Input
+              id="new-email"
+              type="email"
+              value={newDoctor.email}
+              onChange={(e) => setNewDoctor({ ...newDoctor, email: e.target.value })}
+              placeholder="doctor@example.com"
+            />
+          </div>
+
+           <div className="space-y-2">
+            <Label htmlFor="new-phone">Phone</Label>
+            <Input
+              id="new-phone"
+              value={newDoctor.phone}
+              onChange={(e) => handlePhoneChange(e.target.value)}
+              placeholder="(555) 123-4567"
+            />
+          </div>
+
+          <div className="grid grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <Label htmlFor="new-gender">Gender</Label>
+              <Select
+                value={newDoctor.gender || ""}
+                onValueChange={(value) => setNewDoctor({ ...newDoctor, gender: value as Gender })}
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="Select gender" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="MALE">Male</SelectItem>
+                  <SelectItem value="FEMALE">Female</SelectItem>
+                </SelectContent>
+
+              </Select>
+            </div>  
           </div>
 
         </DialogContent> 
