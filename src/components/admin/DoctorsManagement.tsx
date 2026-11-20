@@ -142,9 +142,10 @@ function DoctorsManagement() {
       <AddDoctorDialog isOpen={isAddDialogOpen} onClose={() => setIsAddDialogOpen(false)} />
 
         <EditDoctorDialog
+            key = {selectedDoctor?.id}
             isOpen = {isEditDialogOpen} 
             onClose = {handleCloseEditDialog}
-            doctor = {selectedDoctor}
+            doctor = {selectedDoctor}  
         />
     </>
   );
