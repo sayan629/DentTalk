@@ -152,7 +152,7 @@ const Hero = () => {
                     <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-gradient-to-br from-primary/15 to-primary/5 rounded-full blur-2xl"></div>
                         <Image
                             src={"/hero.png"}
-                            alt="DentWise AI"
+                            alt="DentTalk AI"
                             width={600}
                             height={600}
                             className="w-full h-auto"

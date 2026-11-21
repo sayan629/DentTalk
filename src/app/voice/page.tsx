@@ -1,6 +1,7 @@
 import Navbar from "@/components/Navbar";
 import FeatureCards from "@/components/voice/FeatureCards";
 import ProPlanRequired from "@/components/voice/ProPlanRequired";
+import VapiWidget from "@/components/voice/VapiWidget";
 import WelcomeSection from "@/components/voice/WelcomeSection";
 import { auth } from "@clerk/nextjs/server";
 
@@ -14,8 +15,9 @@ async function VoicePage() {
         <div className="max-w-7xl mx-auto px-6 py-8 pt-24">
             <WelcomeSection />
             <FeatureCards />
-
         </div>
+
+        <VapiWidget />
 
   </div>
   )
