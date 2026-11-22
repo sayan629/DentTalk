@@ -102,13 +102,18 @@ function VapiWidget() {
 
   if (!isLoaded) return null;
 
+  const listening = callActive && !isSpeaking;
+
   return (
     <div className="max-w-5xl mx-auto px-4 flex flex-col overflow-hidden pb-20">
       {/* TITLE */}
       <div className="text-center mb-8">
         <h1 className="text-3xl font-bold font-mono">
           <span>Talk to Your </span>
-          <span className="text-primary uppercase">AI Dental Assistant</span>
+          <span className="text-foreground/80">AI </span>
+          <span className="bg-gradient-to-r from-orange-400 via-pink-400 to-purple-500 bg-clip-text text-transparent">
+            Dental Assistant
+          </span>
         </h1>
         <p className="text-muted-foreground mt-2">
           Have a voice conversation with our AI assistant for dental advice and guidance
@@ -120,26 +125,29 @@ function VapiWidget() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
         {/* AI ASSISTANT CARD */}
 
-        <Card className="bg-card/90 backdrop-blur-sm border border-border overflow-hidden relative">
+        <Card
+          className={`bg-card/90 backdrop-blur-sm border overflow-hidden relative transition-all duration-500 ${
+            isSpeaking
+              ? "border-pink-400/50 shadow-lg shadow-pink-500/10"
+              : "border-border"
+          }`}
+        >
           <div className="aspect-video flex flex-col items-center justify-center p-6 relative">
             {/* AI VOICE ANIMATION */}
             <div
               className={`absolute inset-0 ${
-                isSpeaking ? "opacity-30" : "opacity-0"
-              } transition-opacity duration-300`}
+                isSpeaking ? "opacity-100" : "opacity-0"
+              } transition-opacity duration-500`}
             >
               {/* voice wave animation when speaking */}
-              <div className="absolute left-0 right-0 top-1/2 -translate-y-1/2 flex justify-center items-center h-20">
-                {[...Array(5)].map((_, i) => (
+              <div className="absolute left-0 right-0 top-1/2 -translate-y-1/2 flex justify-center items-center h-24">
+                {[...Array(9)].map((_, i) => (
                   <div
                     key={i}
-                    className={`mx-1 h-16 w-1 bg-primary rounded-full ${
-                      isSpeaking ? "animate-sound-wave" : ""
+                    className={`mx-1 w-1.5 rounded-full bg-gradient-to-t from-orange-400 via-pink-400 to-purple-500 opacity-30 ${
+                      isSpeaking ? "h-20 animate-sound-wave" : "h-[5%]"
                     }`}
-                    style={{
-                      animationDelay: `${i * 0.1}s`,
-                      height: isSpeaking ? `${Math.random() * 50 + 20}%` : "5%",
-                    }}
+                    style={{ animationDelay: `${i * 0.1}s` }}
                   />
                 ))}
               </div>
@@ -147,14 +155,29 @@ function VapiWidget() {
 
             {/* AI LOGO */}
             <div className="relative size-32 mb-4">
+              {/* ripple rings while speaking or connecting */}
+              {(isSpeaking || connecting) && (
+                <>
+                  <span className="absolute inset-0 rounded-full border-2 border-pink-400/50 animate-ripple" />
+                  <span
+                    style={{ animationDelay: "1.2s" }}
+                    className="absolute inset-0 rounded-full border-2 border-purple-400/50 animate-ripple"
+                  />
+                </>
+              )}
+
               <div
-                className={`absolute inset-0 bg-primary opacity-10 rounded-full blur-lg ${
-                  isSpeaking ? "animate-pulse" : ""
+                className={`absolute inset-0 bg-gradient-to-br from-orange-400 via-pink-400 to-purple-500 rounded-full blur-lg transition-opacity duration-500 ${
+                  isSpeaking ? "opacity-40 animate-pulse" : "opacity-10"
                 }`}
               />
 
-              <div className="relative w-full h-full rounded-full bg-card flex items-center justify-center border border-border overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-b from-primary/10 to-primary/5"></div>
+              <div
+                className={`relative w-full h-full rounded-full bg-card flex items-center justify-center border overflow-hidden transition-colors duration-500 ${
+                  isSpeaking ? "border-pink-400" : "border-border"
+                }`}
+              >
+                <div className="absolute inset-0 bg-gradient-to-b from-orange-400/10 to-purple-500/10"></div>
                 <Image
                   src="/logo.png"
                   alt="AI Dental Assistant"
@@ -170,13 +193,17 @@ function VapiWidget() {
 
             {/* SPEAKING INDICATOR */}
             <div
-              className={`mt-4 flex items-center gap-2 px-3 py-1 rounded-full bg-card border border-border ${
-                isSpeaking ? "border-primary" : ""
+              className={`mt-4 flex items-center gap-2 px-3 py-1 rounded-full bg-card border transition-colors duration-300 ${
+                isSpeaking ? "border-pink-400" : "border-border"
               }`}
             >
               <div
                 className={`w-2 h-2 rounded-full ${
-                  isSpeaking ? "bg-primary animate-pulse" : "bg-muted"
+                  isSpeaking
+                    ? "bg-pink-400 animate-pulse"
+                    : callActive
+                    ? "bg-pink-400/50"
+                    : "bg-muted"
                 }`}
               />
 
@@ -185,6 +212,8 @@ function VapiWidget() {
                   ? "Speaking..."
                   : callActive
                   ? "Listening..."
+                  : connecting
+                  ? "Connecting..."
                   : callEnded
                   ? "Call ended"
                   : "Waiting..."}
@@ -194,16 +223,35 @@ function VapiWidget() {
         </Card>
 
         {/* USER CARD */}
-        <Card className={`bg-card/90 backdrop-blur-sm border overflow-hidden relative`}>
+        <Card
+          className={`bg-card/90 backdrop-blur-sm border overflow-hidden relative transition-all duration-500 ${
+            listening
+              ? "border-purple-400/50 shadow-lg shadow-purple-500/10"
+              : "border-border"
+          }`}
+        >
           <div className="aspect-video flex flex-col items-center justify-center p-6 relative">
             {/* User Image */}
             <div className="relative size-32 mb-4">
+              {/* ripple rings while the AI is listening to the user */}
+              {listening && (
+                <>
+                  <span className="absolute inset-0 rounded-full border-2 border-orange-400/50 animate-ripple" />
+                  <span
+                    style={{ animationDelay: "1.2s" }}
+                    className="absolute inset-0 rounded-full border-2 border-purple-400/50 animate-ripple"
+                  />
+                </>
+              )}
+
               <Image
-                src={user?.imageUrl!}
+                src={user?.imageUrl ?? "/logo.png"}
                 alt="User"
                 width={128}
                 height={128}
-                className="size-full object-cover rounded-full"
+                className={`relative size-full object-cover rounded-full border-2 transition-colors duration-500 ${
+                  listening ? "border-purple-400" : "border-transparent"
+                }`}
               />
             </div>
 
@@ -213,9 +261,19 @@ function VapiWidget() {
             </p>
 
             {/* User Ready Text */}
-            <div className={`mt-4 flex items-center gap-2 px-3 py-1 rounded-full bg-card border`}>
-              <div className={`w-2 h-2 rounded-full bg-muted`} />
-              <span className="text-xs text-muted-foreground">Ready</span>
+            <div
+              className={`mt-4 flex items-center gap-2 px-3 py-1 rounded-full bg-card border transition-colors duration-300 ${
+                listening ? "border-purple-400" : "border-border"
+              }`}
+            >
+              <div
+                className={`w-2 h-2 rounded-full ${
+                  listening ? "bg-purple-400 animate-pulse" : "bg-muted"
+                }`}
+              />
+              <span className="text-xs text-muted-foreground">
+                {listening ? "Your turn" : callActive ? "Connected" : "Ready"}
+              </span>
             </div>
           </div>
         </Card>
@@ -229,8 +287,12 @@ function VapiWidget() {
         >
           <div className="space-y-3">
             {messages.map((msg, index) => (
-              <div key={index} className="message-item animate-in fade-in duration-300">
-                <div className="font-semibold text-xs text-muted-foreground mb-1">
+              <div key={index} className="message-item animate-in fade-in slide-in-from-bottom-2 duration-300">
+                <div
+                  className={`font-semibold text-xs mb-1 ${
+                    msg.role === "assistant" ? "text-pink-400" : "text-muted-foreground"
+                  }`}
+                >
                   {msg.role === "assistant" ? "DentTalk AI" : "You"}:
                 </div>
                 <p className="text-foreground">{msg.content}</p>
@@ -239,7 +301,7 @@ function VapiWidget() {
 
             {callEnded && (
               <div className="message-item animate-in fade-in duration-300">
-                <div className="font-semibold text-xs text-primary mb-1">System:</div>
+                <div className="font-semibold text-xs text-purple-400 mb-1">System:</div>
                 <p className="text-foreground">Call ended. Thank you for using DentTalk AI!</p>
               </div>
             )}
@@ -250,18 +312,20 @@ function VapiWidget() {
       {/* CALL CONTROLS */}
       <div className="w-full flex justify-center gap-4">
         <Button
-          className={`w-44 text-xl rounded-3xl ${
+          className={`w-44 text-xl rounded-3xl overflow-hidden ${
             callActive
-              ? "bg-destructive hover:bg-destructive/90"
+              ? "bg-destructive hover:bg-destructive/90 shadow-lg shadow-destructive/30"
               : callEnded
               ? "bg-red-500 hover:bg-red-700"
-              : "bg-primary hover:bg-primary/90"
-          } text-white relative`}
+              : "bg-gradient-to-r from-orange-400 via-pink-500 to-purple-500 hover:brightness-110 shadow-lg shadow-pink-500/30"
+          } text-white relative transition-all duration-300`}
           onClick={toggleCall}
           disabled={connecting || callEnded}
         >
           {connecting && (
-            <span className="absolute inset-0 rounded-full animate-ping bg-primary/50 opacity-75"></span>
+            <span className="absolute inset-x-0 bottom-0 h-1 bg-white/20">
+              <span className="block w-1/3 h-full bg-white/70 animate-loading-sweep" />
+            </span>
           )}
 
           <span>
