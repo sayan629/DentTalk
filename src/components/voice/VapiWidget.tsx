@@ -80,9 +80,40 @@ function VapiWidget() {
     }
   }, []);
 
+  const toggleCall = async () => {
+    if (callActive) vapi.stop();
+    else {
+      try {
+        setConnecting(true);
+        setMessages([]);
+        setCallEnded(false);
+
+        await vapi.start(process.env.NEXT_PUBLIC_VAPI_ASSISTANT_ID);
+      } catch (error) {
+        console.log("Failed to start call", error);
+        setConnecting(false);
+      }
+    }
+  };
+
+  if(!isLoaded) return null
 
 
-  return <div>VapiWidget</div>  
+
+  return (
+  <div className="max-w-5xl mx-auto px-4 flex flex-col overflow-hidden pb-20">
+    {/* TITLE */}
+      <div className="text-center mb-8">
+        <h1 className="text-3xl font-bold font-mono">
+          <span>Talk to Your </span>
+          <span className="text-primary uppercase">AI Dental Assistant</span>
+        </h1>
+        <p className="text-muted-foreground mt-2">
+          Have a voice conversation with our AI assistant for dental advice and guidance
+        </p>
+        </div>
+  </div>  
+  )
 }
 
 export default VapiWidget
