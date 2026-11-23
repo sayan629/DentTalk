@@ -36,3 +36,11 @@ export function useUpdateDoctor() {
         onError: (error: any) => console.error("Error updating doctor:", error),
     });
 } 
+
+export function useAvailableDoctors(){
+    const result = useQuery({
+        queryKey: ["getAvailableDoctors"],
+        queryFn: getAvailableDoctors,
+    }),
+    return result;
+}

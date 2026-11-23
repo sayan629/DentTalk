@@ -1,5 +1,6 @@
 "use client";
 
+import DoctorSelectionStep from "@/components/appointments/DoctorSelectionStep";
 import ProgressSteps from "@/components/appointments/ProgressSteps";
 import Navbar from "@/components/Navbar";
 import { useState } from "react";

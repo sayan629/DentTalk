@@ -98,3 +98,8 @@ export async function updateDoctor(input: UpdateDoctorInput) {
         throw new Error("Failed to update doctor");
     }
 }
+
+
+export async function getAvailableDoctors() {
+    
+}
