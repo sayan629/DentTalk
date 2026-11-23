@@ -3,11 +3,15 @@
 import { auth } from "@clerk/nextjs/server";
 import { prisma } from "../prisma";
 
-function transformAppointment(appointment:any){
-  return{
+function transformAppointment(appointment: any) {
+  return {
     ...appointment,
-    patientName;
-  }
+    patientName: `${appointment.user.firstName || ""} ${appointment.user.lastName || ""}`.trim(),
+    patientEmail: appointment.user.email,
+    doctorName: appointment.doctor.name,
+    doctorImageUrl: appointment.doctor.imageUrl || "",
+    date: appointment.date.toISOString().split("T")[0],
+  };
 }
 
 export async function getAppointments() {
