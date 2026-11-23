@@ -1,5 +1,6 @@
 "use server";
 
+import { auth } from "@clerk/nextjs/server";
 import { prisma } from "../prisma";
 
 export async function getAppointments() {
@@ -23,4 +24,18 @@ export async function getAppointments() {
     console.log("Error fetching appointments:", error);
     throw new Error("Failed to fetch appointments");
   }
+}
+
+export async function getUserAppointmentStats() {
+  try {
+    const {userId} = await auth();
+    if(!userId) throw new Error("You must be authenticated")
+    const user = await prisma.user.findUnique({where:{clerkId:userId}})
+    
+    if(!user) throw new Error("User not found")
+      
+  } catch (error) {
+    
+  }
+  
 }
