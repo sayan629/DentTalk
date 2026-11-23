@@ -13,7 +13,12 @@ function AppointmentsPage() {
     const [showConfirmationModal, setShowConfirmationModal] = useState(false);
     const [bookedAppointment, setBookedAppointment ] = useState<any>(null);
 
-    const handleSelectDentist = (doctorId:string) => {}
+    const handleSelectDentist = (dentistId:string) => {
+        setSelectedDentistId(dentistId);
+        setSelectedDate("");
+        setSelectedTime("");
+        setSelectedType("")
+    }
 
     const handleBookAppointment = async () => {}
 
@@ -29,7 +34,13 @@ function AppointmentsPage() {
 
         <ProgressSteps currentStep = {currentStep} />
 
-
+        {currentStep === 1 && (
+            <DoctorSelectionStep
+                selectedDentistId = {selectedDentistId}
+                onContinue={()=> setCurrentStep(2)}
+                onSelectDentist = {handleSelectDentist}
+        />
+        )}
 
     </div>
   </>

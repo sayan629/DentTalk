@@ -29,11 +29,11 @@ function ProgressSteps({ currentStep }: { currentStep: number }) {
                 </>
               )}
               <div
-                className={`relative w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold transition-all duration-500 ${
+                className={`relative w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold transition-colors duration-500 ${
                   isActive
                     ? "bg-gradient-to-br from-orange-400 via-pink-500 to-purple-500 text-white shadow-md shadow-pink-500/30"
                     : "bg-muted text-muted-foreground"
-                } ${isCurrent ? "scale-110" : ""}`}
+                }`}
               >
                 {stepNumber}
               </div>
@@ -43,7 +43,7 @@ function ProgressSteps({ currentStep }: { currentStep: number }) {
             <span
               className={`text-sm transition-colors duration-500 ${
                 isCurrent
-                  ? "font-medium bg-gradient-to-r from-orange-400 via-pink-400 to-purple-500 bg-clip-text text-transparent"
+                  ? "bg-gradient-to-r from-orange-400 via-pink-400 to-purple-500 bg-clip-text text-transparent"
                   : isActive
                   ? "text-foreground"
                   : "text-muted-foreground"
