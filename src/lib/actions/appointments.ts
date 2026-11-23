@@ -33,9 +33,26 @@ export async function getUserAppointmentStats() {
     const user = await prisma.user.findUnique({where:{clerkId:userId}})
     
     if(!user) throw new Error("User not found")
-      
+
+    const [totalCount, completedCount] = await Promise.all([
+    prisma.appointment.count({
+      where: {userId: user.id},
+    }),
+    prisma.appointment.count({
+      where:{
+        userId: user.id,
+        status: "COMPLETED",
+      },
+    }),
+  ]);
+
+  return{
+    totalAppointments: totalCount,
+    completedAppointments : completedCount
+  }
   } catch (error) {
-    
+    console.error("Error fetching user appointment stats:", error);
+    return { totalAppointments: 0, completedAppointments: 0};
   }
   
 }

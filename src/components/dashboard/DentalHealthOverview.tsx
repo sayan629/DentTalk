@@ -1,9 +1,11 @@
-import React from 'react'
+import { getUserAppointmentStats } from "@/lib/actions/appointments";
+import { currentUser } from "@clerk/nextjs/server";
 
-function DentalHealthOverview() {
+async function DentalHealthOverview() {
+  const appointmentStats = await getUserAppointmentStats();
+  const user = await currentUser();
+
   return (
-    <div>DentalHealthOverview</div>
-  )
-}
 
+  )
 export default DentalHealthOverview
