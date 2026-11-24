@@ -6,7 +6,7 @@ import ProgressSteps from "@/components/appointments/ProgressSteps";
 import TimeSelectionStep from "@/components/appointments/TimeSelectionStep";
 import Navbar from "@/components/Navbar";
 import { toast } from "sonner";
-import { useBookAppointment } from "@/hooks/use-appointment";
+import { useBookAppointment, useUserAppointments } from "@/hooks/use-appointment";
 import { APPOINTMENT_TYPES } from "@/lib/utils";
 import { useState } from "react";
 import { format } from "date-fns";
@@ -21,6 +21,7 @@ function AppointmentsPage() {
     const [bookedAppointment, setBookedAppointment ] = useState<any>(null);
 
     const bookAppointmentMutation = useBookAppointment();
+    const {data: userAppointments = [] } = useUserAppointments()
 
     const handleSelectDentist = (dentistId:string) => {
         setSelectedDentistId(dentistId);
@@ -109,8 +110,10 @@ function AppointmentsPage() {
             onConfirm={handleBookAppointment}
           />
         )}
-
     </div>
+    
+    {/* SHOW EXISTING APPOINTMENTS FOR USER */}
+
   </>
   
 }

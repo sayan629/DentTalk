@@ -1,6 +1,6 @@
 "use client"
 
-import { bookAppointment, getAppointments, getBookedTimeSlots } from "@/lib/actions/appointments"
+import { bookAppointment, getAppointments, getBookedTimeSlots, getUserAppointments } from "@/lib/actions/appointments"
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 
 export function useGetAppointments(){
@@ -32,3 +32,11 @@ export function useBookAppointment(){
 }
 
 // user specific appointments
+
+export function useUserAppointments(){
+    const result = useQuery({
+        queryKey: ["getUserAppointments"],
+        queryFn: getUserAppointments,
+    })
+    return result;
+}
