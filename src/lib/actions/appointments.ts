@@ -135,6 +135,29 @@ export async function bookAppointment(input:BookAppointmentInput) {
     const user = await prisma.user.findUnique({ where: { clerkId: userId } });
     if (!user) throw new Error("User not found. Please ensure your account is properly set up.");
 
+    const appointment = await prisma.appointment.create({
+      data: {
+        userId: user.id,
+        doctorId: input.doctorId,
+        date: new Date(input.date),
+        time: input.time,
+        reason: input.reason || "General consultation",
+        status: "CONFIRMED",
+      },
+      include: {
+        user: {
+          select: {
+            firstName: true,
+            lastName: true,
+            email: true,
+          },
+        },
+        doctor: { select: { name: true, imageUrl: true } },
+      },
+    });
+
+    return transformAppointment(appointment);
+
     
   } catch (error) {
     
