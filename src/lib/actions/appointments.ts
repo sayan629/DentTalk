@@ -93,3 +93,5 @@ export async function getUserAppointmentStats() {
     return { totalAppointments: 0, completedAppointments: 0 };
   }
 }
+
+
