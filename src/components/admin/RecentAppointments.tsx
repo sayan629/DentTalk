@@ -1,3 +1,4 @@
+
 import { useGetAppointments, useUpdateAppointmentStatus } from "@/hooks/use-appointment";
 import { Badge } from "../ui/badge";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../ui/card";
@@ -25,13 +26,13 @@ function RecentAppointments() {
     switch (status) {
       case "CONFIRMED":
         return (
-          <Badge className="bg-gradient-to-r from-orange-400/20 to-pink-400/20 text-orange-300 border border-orange-400/30 hover:from-orange-400/30 hover:to-pink-400/30 transition-all duration-300">
+          <Badge className="bg-orange-400/20 text-orange-400 border border-orange-400/50 hover:bg-orange-400/30 transition-all duration-300 font-semibold">
             Confirmed
           </Badge>
         );
       case "COMPLETED":
         return (
-          <Badge className="bg-gradient-to-r from-pink-400/20 to-purple-500/20 text-purple-300 border border-purple-400/30 hover:from-pink-400/30 hover:to-purple-500/30 transition-all duration-300">
+          <Badge className="bg-green-500/20 text-green-400 border border-green-500/50 hover:bg-green-500/30 transition-all duration-300 font-semibold">
             Completed
           </Badge>
         );
