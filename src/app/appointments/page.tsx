@@ -5,8 +5,11 @@ import DoctorSelectionStep from "@/components/appointments/DoctorSelectionStep";
 import ProgressSteps from "@/components/appointments/ProgressSteps";
 import TimeSelectionStep from "@/components/appointments/TimeSelectionStep";
 import Navbar from "@/components/Navbar";
+import { toast } from "sonner";
 import { useBookAppointment } from "@/hooks/use-appointment";
+import { APPOINTMENT_TYPES } from "@/lib/utils";
 import { useState } from "react";
+import { format } from "date-fns";
 
 function AppointmentsPage() {
     const [selectedDentistId, setSelectedDentistId] = useState<string | null>(null);
@@ -26,7 +29,39 @@ function AppointmentsPage() {
         setSelectedType("")
     }
 
-    const handleBookAppointment = async () => {}
+    const handleBookAppointment = async () => {
+        if(!selectedDentistId || !selectedDate || !selectedTime){
+            toast.error("Please fill in all required fields");
+            return;
+        }
+        const appointmentType = APPOINTMENT_TYPES.find((t) => t.id === selectedType);
+
+        bookAppointmentMutation.mutate({
+            doctorId: selectedDentistId,
+            date: selectedDate,
+            time: selectedTime,
+            reason: appointmentType?.name
+        },
+    {
+        onSuccess: async(appointment) => {
+
+            // store the appointment details
+            setBookedAppointment(appointment);
+            
+            //show success
+            setShowConfirmationModal(true)
+
+            //reset form
+            setSelectedDentistId(null);
+            setSelectedDate("");
+            setSelectedTime("");
+            setSelectedType("");
+            setCurrentStep(1);
+    },
+    onError : (error) => toast.error(`Failed to book appointment: ${error.message}`),
+    }
+)
+    };
 
   return <>
     <Navbar />

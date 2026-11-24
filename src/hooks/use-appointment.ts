@@ -30,3 +30,5 @@ export function useBookAppointment(){
         onError: (error) => console.error("Failed to book appointment", error),
     });
 }
+
+// user specific appointments
