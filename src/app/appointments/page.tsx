@@ -1,9 +1,11 @@
 "use client";
 
+import BookingConfirmationStep from "@/components/appointments/BookingConfirmationStep";
 import DoctorSelectionStep from "@/components/appointments/DoctorSelectionStep";
 import ProgressSteps from "@/components/appointments/ProgressSteps";
 import TimeSelectionStep from "@/components/appointments/TimeSelectionStep";
 import Navbar from "@/components/Navbar";
+import { useBookAppointment } from "@/hooks/use-appointment";
 import { useState } from "react";
 
 function AppointmentsPage() {
@@ -14,6 +16,8 @@ function AppointmentsPage() {
     const [currentStep, setCurrentStep ] = useState(1);
     const [showConfirmationModal, setShowConfirmationModal] = useState(false);
     const [bookedAppointment, setBookedAppointment ] = useState<any>(null);
+
+    const bookAppointmentMutation = useBookAppointment();
 
     const handleSelectDentist = (dentistId:string) => {
         setSelectedDentistId(dentistId);
@@ -55,6 +59,19 @@ function AppointmentsPage() {
             onDateChange={setSelectedDate}
             onTimeChange={setSelectedTime}
             onTypeChange={setSelectedType}
+          />
+        )}
+
+        {currentStep === 3 && selectedDentistId && (
+          <BookingConfirmationStep
+            selectedDentistId={selectedDentistId}
+            selectedDate={selectedDate}
+            selectedTime={selectedTime}
+            selectedType={selectedType}
+            isBooking={bookAppointmentMutation.isPending}
+            onBack={() => setCurrentStep(2)}
+            onModify={() => setCurrentStep(2)}
+            onConfirm={handleBookAppointment}
           />
         )}
 

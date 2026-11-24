@@ -158,9 +158,10 @@ export async function bookAppointment(input:BookAppointmentInput) {
 
     return transformAppointment(appointment);
 
-    
+
   } catch (error) {
-    
+    console.error("Error updating appointment:", error);
+    throw new Error("Failed to update appointment");
   }
   
 }
