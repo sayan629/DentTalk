@@ -52,7 +52,7 @@ export default async function WelcomeSection() {
           style={{ animationDelay: "1.2s" }}
           className="absolute inset-0 rounded-full border-2 border-purple-400/40 animate-ripple"
         />
-        <Image src="/logo.png" alt="DentWise" width={64} height={64} className="relative w-16 h-16" />
+        <Image src="/logo.png" alt="DentTalk" width={64} height={64} className="relative w-16 h-16" />
       </div>
     </div>
   );
