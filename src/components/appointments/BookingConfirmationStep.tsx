@@ -4,6 +4,7 @@ import { ChevronLeftIcon } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import DoctorInfo from "./DoctorInfo";
 
+
 interface BookingConfirmationStepProps {
   selectedDentistId: string;
   selectedDate: string;
