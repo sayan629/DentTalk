@@ -40,7 +40,7 @@ function AppointmentConfirmationEmail({
         <Container style={container}>
           <Section style={logoContainer}>
             <Img
-              src="https://i.ibb.co.com/tRy6cC2/logo.png"
+              src="https://i.ibb.co/tRy6cC2/logo.png"
               width="50"
               height="50"
               alt="DentTalk"
