@@ -5,6 +5,10 @@ import { Calendar } from "lucide-react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../ui/table";
 import { Button } from "../ui/button";
 
+// shared colour classes (orange, pink and purple)
+const gradientText =
+  "bg-gradient-to-r from-orange-400 via-pink-400 to-purple-500 bg-clip-text text-transparent";
+
 function RecentAppointments() {
   const { data: appointments = [] } = useGetAppointments();
   const updateAppointmentMutation = useUpdateAppointmentStatus();
@@ -20,29 +24,37 @@ function RecentAppointments() {
   const getStatusBadge = (status: string) => {
     switch (status) {
       case "CONFIRMED":
-        return <Badge className="bg-blue-100 text-blue-800 hover:bg-blue-100">Confirmed</Badge>;
+        return (
+          <Badge className="bg-gradient-to-r from-orange-400/20 to-pink-400/20 text-orange-300 border border-orange-400/30 hover:from-orange-400/30 hover:to-pink-400/30 transition-all duration-300">
+            Confirmed
+          </Badge>
+        );
       case "COMPLETED":
-        return <Badge className="bg-green-100 text-green-800 hover:bg-green-100">Completed</Badge>;
+        return (
+          <Badge className="bg-gradient-to-r from-pink-400/20 to-purple-500/20 text-purple-300 border border-purple-400/30 hover:from-pink-400/30 hover:to-purple-500/30 transition-all duration-300">
+            Completed
+          </Badge>
+        );
       default:
         return <Badge variant="secondary">{status}</Badge>;
     }
   };
 
   return (
-    <Card>
+    <Card className="border-pink-400/20 bg-gradient-to-br from-orange-400/5 via-pink-400/5 to-purple-500/5 transition-shadow duration-300 hover:shadow-lg hover:shadow-pink-500/10 animate-in fade-in slide-in-from-bottom-6 duration-700">
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
-          <Calendar className="h-5 w-5 text-primary" />
-          Recent Appointments
+          <Calendar className="h-5 w-5 text-pink-400 animate-pulse" />
+          <span className={gradientText}>Recent Appointments</span>
         </CardTitle>
         <CardDescription>Monitor and manage all patient appointments</CardDescription>
       </CardHeader>
 
       <CardContent>
-        <div className="rounded-lg border">
+        <div className="rounded-lg border border-pink-400/20 overflow-hidden">
           <Table>
             <TableHeader>
-              <TableRow>
+              <TableRow className="bg-gradient-to-r from-orange-400/10 via-pink-400/10 to-purple-500/10 border-pink-400/20 hover:bg-transparent">
                 <TableHead>Patient</TableHead>
                 <TableHead>Doctor</TableHead>
                 <TableHead>Date & Time</TableHead>
@@ -53,8 +65,15 @@ function RecentAppointments() {
             </TableHeader>
 
             <TableBody>
-              {appointments.map((appointment) => (
-                <TableRow key={appointment.id}>
+              {appointments.map((appointment, index) => (
+                <TableRow
+                  key={appointment.id}
+                  style={{
+                    animationDelay: `${Math.min(index, 10) * 60}ms`,
+                    animationFillMode: "backwards",
+                  }}
+                  className="border-pink-400/10 transition-colors duration-300 hover:bg-gradient-to-r hover:from-orange-400/5 hover:via-pink-400/5 hover:to-purple-500/10 animate-in fade-in slide-in-from-left-4 duration-500"
+                >
                   <TableCell>
                     <div>
                       <div className="font-medium">{appointment.patientName}</div>
@@ -78,7 +97,7 @@ function RecentAppointments() {
                       variant="ghost"
                       size="sm"
                       onClick={() => handleToggleAppointmentStatus(appointment.id)}
-                      className="h-6 px-2"
+                      className="h-6 px-2 hover:bg-pink-400/10 transition-all duration-300 hover:scale-105"
                     >
                       {getStatusBadge(appointment.status)}
                     </Button>
