@@ -16,6 +16,8 @@ import {
 import { APPOINTMENT_TYPES, generateAvatar } from "@/lib/utils";
 import { useState } from "react";
 import { format } from "date-fns";
+import { AppointmentConfirmationModal } from "@/components/appointments/AppointmentConfirmationModal";
+
 
 function AppointmentsPage() {
   const [selectedDentistId, setSelectedDentistId] = useState<string | null>(
