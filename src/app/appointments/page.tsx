@@ -49,6 +49,9 @@ function AppointmentsPage() {
 
             // store the appointment details
             setBookedAppointment(appointment);
+
+
+            
             
             //show success
             setShowConfirmationModal(true)
