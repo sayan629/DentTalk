@@ -389,15 +389,18 @@ function CTA() {
                   }}
                   className="relative"
                 >
-                  <Image
-                    src="/cta.png"
-                    alt="DentTalk AI Assistant"
-                    width={300}
-                    height={300}
-                    style={play(inView, `cta-iris 1.2s ${EASE} 0.5s both`)}
-                    className="cta-reveal relative w-80 h-auto drop-shadow-xl hover:scale-105 transition-transform duration-500"
-                    priority
-                  />
+                  
+<Image
+  src="/cta.gif"
+  alt="DentTalk AI Assistant - Animated Robot"
+  width={4096}
+  height={4096}
+  unoptimized
+  priority
+  style={play(inView, `cta-iris 1.2s ${EASE} 0.5s both`)}
+  className="cta-reveal relative w-80 sm:w-96 lg:w-[480px] h-auto object-contain drop-shadow-xl hover:scale-105 transition-transform duration-500"
+/>
+
                 </div>
 
                 {/* confetti bursts out once */}
