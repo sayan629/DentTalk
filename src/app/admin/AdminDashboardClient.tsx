@@ -103,7 +103,7 @@ function AdminDashboardClient() {
 
   const stats = {
     totalDoctors: doctors.length,
-    activeDoctors: doctors.filter((doc) => doc.isActive).length,
+    activeDoctors: doctors.filter((doc: { isActive: boolean }) => doc.isActive).length,
     totalAppointments: appointments.length,
     completedAppointments: appointments.filter((app) => app.status === "COMPLETED").length,
   };
