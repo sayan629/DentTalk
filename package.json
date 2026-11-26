@@ -3,14 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
-    "build": "next build --turbopack",
-    "start": "next start",
-    "lint": "biome check",
-    "format": "biome format --write",
-    "postinstall": "prisma skills sync || exit 0",
-    "contract:emit": "prisma contract emit"
-  },
+  "dev": "next dev --turbopack",
+  "build": "next build --turbopack",
+  "start": "next start",
+  "lint": "biome check",
+  "format": "biome format --write",
+  "postinstall": "prisma generate",
+  "contract:emit": "prisma contract emit"
+},
   "dependencies": {
     "@base-ui/react": "^1.9.0",
     "@clerk/nextjs": "^7.9.18",
