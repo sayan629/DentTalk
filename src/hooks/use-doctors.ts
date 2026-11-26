@@ -1,48 +1,82 @@
+
 "use client";
 
-import { createDoctor, getAvailableDoctors, getDoctors, updateDoctor } from "@/lib/actions/doctors";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import {
+  createDoctor,
+  getAvailableDoctors,
+  getDoctors,
+  updateDoctor,
+} from "@/lib/actions/doctors";
 
-export function useGetDoctors(){
-    const result = useQuery({
-        queryKey: ["getDoctors"],
-        queryFn: getDoctors,
-    });
+import {
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from "@tanstack/react-query";
 
-    return result;
+// Automatically derive types from Prisma server actions
+export type Doctor = Awaited<
+  ReturnType<typeof getDoctors>
+>[number];
+
+export type AvailableDoctor = Awaited<
+  ReturnType<typeof getAvailableDoctors>
+>[number];
+
+export function useGetDoctors() {
+  return useQuery({
+    queryKey: ["getDoctors"],
+    queryFn: getDoctors,
+  });
 }
 
-
 export function useCreateDoctor() {
-    const queryClient = useQueryClient();
-    const result = useMutation({
-        mutationFn: createDoctor,
-        onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ["getDoctors"] });
-        },
-        onError: (error: any) => console.error("Error creating doctor:", error),
-    });
+  const queryClient = useQueryClient();
 
-    return result;
+  return useMutation({
+    mutationFn: createDoctor,
+
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["getDoctors"],
+      });
+
+      queryClient.invalidateQueries({
+        queryKey: ["getAvailableDoctors"],
+      });
+    },
+
+    onError: (error: Error) => {
+      console.error("Error creating doctor:", error);
+    },
+  });
 }
 
 export function useUpdateDoctor() {
-    const queryClient = useQueryClient();
-    return useMutation({
-        mutationFn: updateDoctor,
-        onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ["getDoctors"] });
-            queryClient.invalidateQueries({ queryKey: ["getAvailableDoctors"] });
+  const queryClient = useQueryClient();
 
-        },
-        onError: (error: any) => console.error("Error updating doctor:", error),
-    });
-} 
+  return useMutation({
+    mutationFn: updateDoctor,
 
-export function useAvailableDoctors(){
-    const result = useQuery({
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["getDoctors"],
+      });
+
+      queryClient.invalidateQueries({
         queryKey: ["getAvailableDoctors"],
-        queryFn: getAvailableDoctors,
-    });
-    return result;
+      });
+    },
+
+    onError: (error: Error) => {
+      console.error("Error updating doctor:", error);
+    },
+  });
+}
+
+export function useAvailableDoctors() {
+  return useQuery({
+    queryKey: ["getAvailableDoctors"],
+    queryFn: getAvailableDoctors,
+  });
 }

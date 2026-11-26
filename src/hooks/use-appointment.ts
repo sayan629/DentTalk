@@ -1,44 +1,75 @@
-"use client"
 
-import { bookAppointment, getAppointments, getBookedTimeSlots, getUserAppointments, updateAppointmentStatus } from "@/lib/actions/appointments"
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
+"use client";
 
-export function useGetAppointments(){
-    const result = useQuery({
-        queryKey: ["getAppointments"],
-        queryFn: getAppointments,
-    });
-    return result;
+import {
+  bookAppointment,
+  getAppointments,
+  getBookedTimeSlots,
+  getUserAppointments,
+  updateAppointmentStatus,
+} from "@/lib/actions/appointments";
+
+import {
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from "@tanstack/react-query";
+
+// Automatically derive types from server actions
+export type Appointment = Awaited<
+  ReturnType<typeof getAppointments>
+>[number];
+
+export type UserAppointment = Awaited<
+  ReturnType<typeof getUserAppointments>
+>[number];
+
+export function useGetAppointments() {
+  return useQuery({
+    queryKey: ["getAppointments"],
+    queryFn: getAppointments,
+  });
 }
 
-export function useBookedTimeSlots (doctorId: string, date: string){
-    return useQuery({
-        queryKey: ["getBookedTimeSlots"],
-        queryFn: () => getBookedTimeSlots(doctorId!, date),
-        enabled: !!doctorId && !!date,
-    })
+export function useBookedTimeSlots(
+  doctorId: string,
+  date: string
+) {
+  return useQuery({
+    queryKey: ["getBookedTimeSlots", doctorId, date],
+    queryFn: () => getBookedTimeSlots(doctorId, date),
+    enabled: Boolean(doctorId && date),
+  });
 }
 
-export function useBookAppointment(){
-    const queryClient = useQueryClient();
+export function useBookAppointment() {
+  const queryClient = useQueryClient();
 
-    return useMutation({
-        mutationFn: bookAppointment,
-        onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ["getUserAppointments"]});
-        },
-        onError: (error) => console.error("Failed to book appointment", error),
-    });
-}
+  return useMutation({
+    mutationFn: bookAppointment,
 
-// user specific appointments
-
-export function useUserAppointments(){
-    const result = useQuery({
+    onSuccess: () => {
+      queryClient.invalidateQueries({
         queryKey: ["getUserAppointments"],
-        queryFn: getUserAppointments,
-    })
-    return result;
+      });
+
+      queryClient.invalidateQueries({
+        queryKey: ["getAppointments"],
+      });
+    },
+
+    onError: (error: Error) => {
+      console.error("Failed to book appointment:", error);
+    },
+  });
+}
+
+// User-specific appointments
+export function useUserAppointments() {
+  return useQuery({
+    queryKey: ["getUserAppointments"],
+    queryFn: getUserAppointments,
+  });
 }
 
 export function useUpdateAppointmentStatus() {
@@ -46,9 +77,19 @@ export function useUpdateAppointmentStatus() {
 
   return useMutation({
     mutationFn: updateAppointmentStatus,
+
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["getAppointments"] });
+      queryClient.invalidateQueries({
+        queryKey: ["getAppointments"],
+      });
+
+      queryClient.invalidateQueries({
+        queryKey: ["getUserAppointments"],
+      });
     },
-    onError: (error) => console.error("Failed to update appointment:", error),
+
+    onError: (error: Error) => {
+      console.error("Failed to update appointment:", error);
+    },
   });
 }
