@@ -8,16 +8,20 @@ import DoctorsManagement from "@/components/admin/DoctorsManagement";
 import RecentAppointments from "@/components/admin/RecentAppointments";
 import Navbar from "@/components/Navbar";
 
-import { useGetAppointments } from "@/hooks/use-appointment";
-import type { Appointment } from "@/hooks/use-appointment";
+import {
+  useGetAppointments,
+  type Appointment,
+} from "@/hooks/use-appointment";
 
-import { useGetDoctors } from "@/hooks/use-doctors";
-import type { Doctor } from "@/hooks/use-doctors";
+import {
+  useGetDoctors,
+  type Doctor,
+} from "@/hooks/use-doctors";
 
 import { useUser } from "@clerk/nextjs";
 import { SettingsIcon } from "lucide-react";
 
-// Shared colour classes (orange, pink and purple)
+// Shared gradient colors
 const gradientText =
   "bg-gradient-to-r from-orange-400 via-pink-400 to-purple-500 bg-clip-text text-transparent";
 
@@ -36,36 +40,62 @@ const dashKeyframes = `
     }
   }
 
-  /* Three blurred colour clouds drift slowly behind the banner */
+  /* Three blurred color clouds drift slowly */
   @keyframes dash-drift-a {
-    0% { transform: translate(0, 0) scale(1); }
-    100% { transform: translate(70px, 36px) scale(1.2); }
+    0% {
+      transform: translate(0, 0) scale(1);
+    }
+    100% {
+      transform: translate(70px, 36px) scale(1.2);
+    }
   }
 
   @keyframes dash-drift-b {
-    0% { transform: translate(0, 0) scale(1.1); }
-    100% { transform: translate(-60px, -30px) scale(0.9); }
+    0% {
+      transform: translate(0, 0) scale(1.1);
+    }
+    100% {
+      transform: translate(-60px, -30px) scale(0.9);
+    }
   }
 
   @keyframes dash-drift-c {
-    0% { transform: translate(0, 0) scale(1); }
-    100% { transform: translate(-40px, 50px) scale(1.25); }
+    0% {
+      transform: translate(0, 0) scale(1);
+    }
+    100% {
+      transform: translate(-40px, 50px) scale(1.25);
+    }
   }
 
   @keyframes dash-spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
   }
 
   @keyframes dash-spin-rev {
-    0% { transform: rotate(360deg); }
-    100% { transform: rotate(0deg); }
+    0% {
+      transform: rotate(360deg);
+    }
+    100% {
+      transform: rotate(0deg);
+    }
   }
 
   @keyframes dash-blink {
-    0%, 45% { opacity: 1; }
-    50%, 95% { opacity: 0; }
-    100% { opacity: 1; }
+    0%, 45% {
+      opacity: 1;
+    }
+    50%, 95% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
   }
 
   @keyframes dash-fade {
@@ -79,15 +109,23 @@ const dashKeyframes = `
     }
   }
 
-  /* A bright segment travels along the heartbeat line */
+  /* Traveling heartbeat line */
   @keyframes dash-ecg {
-    0% { stroke-dashoffset: 30; }
-    100% { stroke-dashoffset: -70; }
+    0% {
+      stroke-dashoffset: 30;
+    }
+    100% {
+      stroke-dashoffset: -70;
+    }
   }
 
   @keyframes dash-dot {
-    0%, 100% { opacity: 0.2; }
-    50% { opacity: 1; }
+    0%, 100% {
+      opacity: 0.2;
+    }
+    50% {
+      opacity: 1;
+    }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -108,8 +146,7 @@ const dashKeyframes = `
   }
 `;
 
-// Types the heading out one character at a time
-// Skips straight to the full text under reduced motion
+// Typewriter heading animation
 function useTypewriter(
   text: string,
   startDelayMs = 700,
@@ -118,7 +155,11 @@ function useTypewriter(
   const [count, setCount] = useState(0);
 
   useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    if (
+      window.matchMedia(
+        "(prefers-reduced-motion: reduce)"
+      ).matches
+    ) {
       setCount(text.length);
       return;
     }
@@ -164,7 +205,7 @@ function AdminDashboardClient() {
     isLoading: appointmentsLoading,
   } = useGetAppointments();
 
-  // Dashboard statistics
+  // Type-safe dashboard statistics
   const stats = {
     totalDoctors: doctors.length,
 
@@ -192,17 +233,17 @@ function AdminDashboardClient() {
     <div className="min-h-screen bg-background">
       <Navbar />
 
-      <div className="max-w-7xl mx-auto px-6 py-8 pt-24">
+      <div className="mx-auto max-w-7xl px-6 py-8 pt-24">
         <style>{dashKeyframes}</style>
 
-        {/* Admin Welcome section */}
+        {/* Admin Welcome Section */}
         <div
           style={{
             animation: `dash-curtain 1s ${EASE} backwards`,
           }}
           className="dash-reveal relative mb-12 flex items-center justify-between overflow-hidden rounded-3xl border border-pink-400/20 bg-gradient-to-br from-orange-400/10 via-pink-400/5 to-purple-500/10 p-8"
         >
-          {/* Aurora: slow-drifting clouds of brand colour */}
+          {/* Aurora background */}
           <div
             aria-hidden="true"
             className="pointer-events-none absolute inset-0"
@@ -232,6 +273,7 @@ function AdminDashboardClient() {
             />
           </div>
 
+          {/* Welcome text */}
           <div className="relative space-y-4">
             <div
               style={{
@@ -247,12 +289,11 @@ function AdminDashboardClient() {
             </div>
 
             <div>
-              <h1
-                className={`mb-2 text-4xl font-bold ${gradientText}`}
-              >
+              <h1 className={`mb-2 text-4xl font-bold ${gradientText}`}>
                 {/* Full text for screen readers */}
                 <span className="sr-only">{headline}</span>
 
+                {/* Animated text */}
                 <span aria-hidden="true">
                   {headline.slice(0, typed)}
 
@@ -265,14 +306,15 @@ function AdminDashboardClient() {
                     >
                       <span
                         style={{
-                          animation: "dash-blink 1s step-end infinite",
+                          animation:
+                            "dash-blink 1s step-end infinite",
                         }}
                         className="dash-loop block size-full bg-pink-400"
                       />
                     </span>
                   </span>
 
-                  {/* Holds the remaining space so the layout does not jump */}
+                  {/* Prevent layout shifting */}
                   <span className="invisible">
                     {headline.slice(typed)}
                   </span>
@@ -291,7 +333,7 @@ function AdminDashboardClient() {
             </div>
           </div>
 
-          {/* Two orbit rings circle a slowly turning gear */}
+          {/* Animated settings icon */}
           <div className="relative hidden lg:block">
             <div className="relative size-36">
               <div
@@ -326,7 +368,7 @@ function AdminDashboardClient() {
           </div>
         </div>
 
-        {/* Admin statistics */}
+        {/* Dashboard statistics */}
         <AdminStats
           totalDoctors={stats.totalDoctors}
           activeDoctors={stats.activeDoctors}
@@ -334,7 +376,7 @@ function AdminDashboardClient() {
           completedAppointments={stats.completedAppointments}
         />
 
-        {/* Doctors management */}
+        {/* Doctor management */}
         <DoctorsManagement />
 
         {/* Recent appointments */}
@@ -346,7 +388,7 @@ function AdminDashboardClient() {
 
 export default AdminDashboardClient;
 
-// Dashboard loading screen
+// Loading UI
 function LoadingUI() {
   return (
     <div className="min-h-screen bg-background">
@@ -354,10 +396,10 @@ function LoadingUI() {
 
       <style>{dashKeyframes}</style>
 
-      <div className="max-w-7xl mx-auto px-6 py-8 pt-24">
-        <div className="flex items-center justify-center h-96">
+      <div className="mx-auto max-w-7xl px-6 py-8 pt-24">
+        <div className="flex h-96 items-center justify-center">
           <div role="status" className="text-center">
-            {/* Heartbeat trace while data loads */}
+            {/* Animated heartbeat */}
             <svg
               viewBox="0 0 240 64"
               width="240"
@@ -380,7 +422,7 @@ function LoadingUI() {
                 </linearGradient>
               </defs>
 
-              {/* Faint full trace underneath */}
+              {/* Faint heartbeat trace */}
               <path
                 d="M0 32 H48 q6 -8 12 0 H78 L86 38 L96 6 L106 54 L114 32 H140 q10 -14 20 0 H240"
                 fill="none"
@@ -391,7 +433,7 @@ function LoadingUI() {
                 strokeLinejoin="round"
               />
 
-              {/* Bright travelling segment */}
+              {/* Animated heartbeat trace */}
               <path
                 d="M0 32 H48 q6 -8 12 0 H78 L86 38 L96 6 L106 54 L114 32 H140 q10 -14 20 0 H240"
                 fill="none"
@@ -411,10 +453,7 @@ function LoadingUI() {
             <p className="flex items-center justify-center gap-2 text-muted-foreground">
               Loading dashboard data
 
-              <span
-                className="flex gap-1"
-                aria-hidden="true"
-              >
+              <span className="flex gap-1" aria-hidden="true">
                 {[0, 0.25, 0.5].map((d) => (
                   <span
                     key={d}

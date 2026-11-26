@@ -24,6 +24,7 @@ export type UserAppointment = Awaited<
   ReturnType<typeof getUserAppointments>
 >[number];
 
+// Get all appointments (Admin)
 export function useGetAppointments() {
   return useQuery({
     queryKey: ["getAppointments"],
@@ -31,6 +32,7 @@ export function useGetAppointments() {
   });
 }
 
+// Get booked time slots
 export function useBookedTimeSlots(
   doctorId: string,
   date: string
@@ -42,20 +44,22 @@ export function useBookedTimeSlots(
   });
 }
 
+// Book appointment
 export function useBookAppointment() {
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: bookAppointment,
 
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ["getUserAppointments"],
-      });
-
-      queryClient.invalidateQueries({
-        queryKey: ["getAppointments"],
-      });
+    onSuccess: async () => {
+      await Promise.all([
+        queryClient.invalidateQueries({
+          queryKey: ["getUserAppointments"],
+        }),
+        queryClient.invalidateQueries({
+          queryKey: ["getAppointments"],
+        }),
+      ]);
     },
 
     onError: (error: Error) => {
@@ -64,7 +68,7 @@ export function useBookAppointment() {
   });
 }
 
-// User-specific appointments
+// Get appointments for logged-in user
 export function useUserAppointments() {
   return useQuery({
     queryKey: ["getUserAppointments"],
@@ -72,20 +76,22 @@ export function useUserAppointments() {
   });
 }
 
+// Update appointment status
 export function useUpdateAppointmentStatus() {
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: updateAppointmentStatus,
 
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ["getAppointments"],
-      });
-
-      queryClient.invalidateQueries({
-        queryKey: ["getUserAppointments"],
-      });
+    onSuccess: async () => {
+      await Promise.all([
+        queryClient.invalidateQueries({
+          queryKey: ["getAppointments"],
+        }),
+        queryClient.invalidateQueries({
+          queryKey: ["getUserAppointments"],
+        }),
+      ]);
     },
 
     onError: (error: Error) => {
