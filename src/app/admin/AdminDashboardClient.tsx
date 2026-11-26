@@ -207,18 +207,18 @@ function AdminDashboardClient() {
 
   // Type-safe dashboard statistics
   const stats = {
-    totalDoctors: doctors.length,
+  totalDoctors: doctors.length,
 
-    activeDoctors: doctors.filter(
-      (doc: Doctor) => doc.isActive
-    ).length,
+  activeDoctors: doctors.filter(
+    (doc: { isActive: boolean }) => doc.isActive
+  ).length,
 
-    totalAppointments: appointments.length,
+  totalAppointments: appointments.length,
 
-    completedAppointments: appointments.filter(
-      (app: Appointment) => app.status === "COMPLETED"
-    ).length,
-  };
+  completedAppointments: appointments.filter(
+    (app: { status: string }) => app.status === "COMPLETED"
+  ).length,
+};
 
   const headline = `Welcome back, ${user?.firstName || "Admin"}!`;
 
