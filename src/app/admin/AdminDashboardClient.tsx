@@ -210,13 +210,13 @@ function AdminDashboardClient() {
   totalDoctors: doctors.length,
 
   activeDoctors: doctors.filter(
-    (doc: { isActive: boolean }) => doc.isActive
+    (doc: any) => doc.isActive
   ).length,
 
   totalAppointments: appointments.length,
 
   completedAppointments: appointments.filter(
-    (app: { status: string }) => app.status === "COMPLETED"
+    (app: any) => app.status === "COMPLETED"
   ).length,
 };
 
